@@ -4,9 +4,12 @@ game.resources = [
 	 * @example
 	 * {name: "example", type:"image", src: "data/img/example.png"},
 	 */
+        //these are for the background tiles 
            {name: "background-tiles", type:"image", src: "data/img/background-tiles.png"},
+           //these are for the solid tiles so i wont fall through the gorund 
            {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
            {name: "mario", type:"image", src: "data/img/player1.png"},
+           {name: "title-screen", type:"image", src: "data/img/title-screen.png"},
 
 	/* Atlases 
 	 * @example

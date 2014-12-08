@@ -40,13 +40,15 @@ var game = {
 	// Run on game resources loaded.
 	"loaded" : function () {
                 me.pool.register("mario",game.PlayerEntity, true);
-                
+                //this is also for mario to enter the door and go to the next level
                 me.pool.register("levelTrigger", game.LevelTrigger );
             
+            //this is so it restarts the same every time you lose. 
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 
 		// Start the game.
-		me.state.change(me.state.PLAY);
+                //change is the screen you start at 
+		me.state.change(me.state.MENU);
 	}
 };
