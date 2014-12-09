@@ -2,14 +2,15 @@
 game.PlayerEntity = me.Entity.extend ({
   init: function (x, y, settings){ 
       this._super(me.Entity, 'init', [x, y, {
-          image: "mario",
+          image: "mario",    
           spritewidth: "128",
           spriteheight: "128",
           width: 128,
           height: 128,
           getShape: function(){
-             return (new me.Rect(0, 0, 30, 128)).toPolygon();
-         }
+             return (new me.Rect(0, 0, 30, 128)).toPolygon(); 
+ 
+            }
         }]);
          //this is for the  the many movement of his legs when he walks. 
         this.renderable.addAnimation("idle",[3]);
@@ -37,6 +38,18 @@ game.PlayerEntity = me.Entity.extend ({
       }
       
        this.body.update(delta);
+       
+       
+       if (me.input.isKeyPressed("left")){
+           
+           this.body.vel.x -= this.body.accel.x * me.timer.tick;
+          
+       }else{
+           this.body.vel.x = 0;
+      }
+      
+       this.body.update(delta);
+       
        //collision check is a function that passes a peramitor to determine and travel mario walking into 
        //the first peramitor passes this object as one of the area but,  
        me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -78,3 +91,21 @@ game.PlayerEntity = me.Entity.extend ({
       
   });    
   
+  game.BadGuy = me.Entity.extend({
+      init: function(x, y, settings){
+          this._super(me.Entity, 'init', [x, y, {
+          image: "slime",    
+          spritewidth: "60",
+          spriteheight: "28",
+          width: 60,
+          height: 28,
+          getShape: function(){
+             return (new me.Rect(0, 0, 00, 28)).toPolygon(); 
+             }
+         }]);   
+      },
+      
+      update: function(delta){
+          
+      }
+  });

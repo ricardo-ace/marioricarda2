@@ -40,6 +40,7 @@ var game = {
 	// Run on game resources loaded.
 	"loaded" : function () {
                 me.pool.register("mario",game.PlayerEntity, true);
+                me.pool.register("BadGuy",game.BadGuy);
                 //this is also for mario to enter the door and go to the next level
                 me.pool.register("levelTrigger", game.LevelTrigger );
             
