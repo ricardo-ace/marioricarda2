@@ -4,8 +4,7 @@ game.TitleScreen = me.ScreenObject.extend({
 	 */
 	onResetEvent: function() {	
             //the title image for when my gme is starting and 00 is for the top  right corner of the sreen
-		var titleImage = (new me.Sprite(0, 0, me.loader.getImage('title-screen')),-10);
-                me.game.world.addChild(titleImage, 1);
+		me.game.world.addChild(new me.Sprite (0, 0, me.loader.getImage('title-screen')), -10);
                 //to press the enter button to start
                 me.input.bindKey(me.input.KEY.ENTER, "start");
                 
@@ -14,9 +13,9 @@ game.TitleScreen = me.ScreenObject.extend({
                     
                   init: function(){
                       //font and size and color of my title letters 
-                      this._super(me.renderable, 'init', [510, 30, me.game.viewport.width, me.game.viewport.height]);
+                      this._super(me.Renderable, 'init', [510, 30, me.game.viewport.width, me.game.viewport.height]);
                       
-                      this.font = new me.font("Impact", 460, "White");
+                      this.font = new me.Font("Impact", 46, "White");
                   }, 
                   
                   draw: function(renderer){
@@ -29,7 +28,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 
                 
                 //so the action that will happen when pushed is restart
-                this.hanler = (me.event.KEYDOWN, function(action, keyCode, edge){
+                this.handler = me.event.subscribe(me.event.KEYDOWN, function(action, keyCode, edge){
                     if(action ==="start"){
                         me.state.change(me.state.PLAY);
                     }
@@ -44,6 +43,6 @@ game.TitleScreen = me.ScreenObject.extend({
 	onDestroyEvent: function() {
          me.input.unbindKey(me.input.KEY.ENTER);  
          //pays no attention to the hanler
-	 me.event.unsubcribe(this.hanler);
+	 me.event.unsubscribe(this.handler);
 	}
 });

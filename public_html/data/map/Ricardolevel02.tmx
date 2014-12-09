@@ -37,7 +37,6 @@
   </data>
  </layer>
  <objectgroup name="enemy entities" width="21" height="9">
-  <object x="663" y="491"/>
   <object name="BadGuy" x="632" y="490" width="421" height="68"/>
   <object name="BadGUy" x="912" y="491" width="276" height="68"/>
   <object name="BadGuy" x="1260" y="494" width="135" height="64"/>

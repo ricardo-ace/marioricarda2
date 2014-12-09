@@ -1,55 +1,51 @@
 
 /* Game namespace */
 var game = {
+    // an object where to store game information
+    data: {
+        // score
+        score: 0
+   },
+    // Run on page load.
+    "onload": function() {
+        // Initialize the video.
+        if (!me.video.init("screen", me.video.CANVAS, 1067, 600, true, 1.0)) {
+            alert("Your browser does not support HTML5 canvas.");
+            return;
+        }
 
-	// an object where to store game information
-	data : {
-		// score
-		score : 0
-	},
-	
-	
-	// Run on page load.
-	"onload" : function () {
-	// Initialize the video.
-	if (!me.video.init("screen",  me.video.CANVAS, 1067, 600, true, 1.0 )) {
-		alert("Your browser does not support HTML5 canvas.");
-		return;
-	}
+        // add "#debug" to the URL to enable the debug Panel
+        if (document.location.hash === "#debug") {
+            window.onReady(function() {
+                me.plugin.register.defer(this, debugPanel, "debug");
+            });
+        }
 
-	// add "#debug" to the URL to enable the debug Panel
-	if (document.location.hash === "#debug") {
-		window.onReady(function () {
-			me.plugin.register.defer(this, debugPanel, "debug");
-		});
-	}
+        // Initialize the audio.
+        me.audio.init("mp3,ogg");
 
-	// Initialize the audio.
-	me.audio.init("mp3,ogg");
+        // Set a callback to run when loading is complete.
+        me.loader.onload = this.loaded.bind(this);
 
-	// Set a callback to run when loading is complete.
-	me.loader.onload = this.loaded.bind(this);
+        // Load the resources.
+        me.loader.preload(game.resources);
 
-	// Load the resources.
-	me.loader.preload(game.resources);
+        // Initialize melonJS and display a loading screen.
+        me.state.change(me.state.LOADING);
+    },
+    // Run on game resources loaded.
+    "loaded": function() {
+        me.pool.register("mario", game.PlayerEntity, true);
+        me.pool.register("BadGuy", game.BadGuy);
+        //this is also for mario to enter the door and go to the next level
+        me.pool.register("levelTrigger", game.LevelTrigger);
 
-	// Initialize melonJS and display a loading screen.
-	me.state.change(me.state.LOADING);
-},
+        //this is so it restarts the same every time you lose. 
+        me.state.set(me.state.MENU, new game.TitleScreen());
+        me.state.set(me.state.PLAY, new game.PlayScreen());
 
-	// Run on game resources loaded.
-	"loaded" : function () {
-                me.pool.register("mario",game.PlayerEntity, true);
-                me.pool.register("BadGuy",game.BadGuy);
-                //this is also for mario to enter the door and go to the next level
-                me.pool.register("levelTrigger", game.LevelTrigger );
-            
-            //this is so it restarts the same every time you lose. 
-		me.state.set(me.state.MENU, new game.TitleScreen());
-		me.state.set(me.state.PLAY, new game.PlayScreen());
-
-		// Start the game.
-                //change is the screen you start at 
-		me.state.change(me.state.MENU);
-	}
+        // Start the game.
+        //change is the screen you start at 
+        me.state.change(me.state.MENU);
+    }
 };
