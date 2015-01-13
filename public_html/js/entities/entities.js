@@ -104,8 +104,12 @@ game.BadGuy = me.Entity.extend({
         this.walkLeft = false;
         this.alive = true;
         this.type = "badguy";
+        
+        this.body.setVelocity (4, 6);
 
     },
+    
+    
     update: function(delta) {
      this.body.update(delta);
      me.collision.check(this, true, this.collideHandler.bind(this), true);
